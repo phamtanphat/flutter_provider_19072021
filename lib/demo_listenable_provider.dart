@@ -74,6 +74,8 @@ class OtherWidget extends StatefulWidget {
 }
 
 class _OtherWidgetState extends State<OtherWidget> {
+  final textController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -81,6 +83,7 @@ class _OtherWidgetState extends State<OtherWidget> {
       child: Column(
         children: [
           TextField(
+            controller: textController,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10))
@@ -91,7 +94,8 @@ class _OtherWidgetState extends State<OtherWidget> {
           SizedBox(height: 20),
           ElevatedButton(
               onPressed: (){
-
+                  Person person = Provider.of(context , listen: false);
+                  person.name.value += textController.text;
               },
               child: Text("Change Name")
           )
