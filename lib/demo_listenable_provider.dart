@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Person {
   late ValueNotifier<String> name;
-  late ValueNotifier<int> age;
-  Person({required this.name , required this.age});
+  Person({required this.name});
 }
 
 class DemoListenableProviderPage extends StatefulWidget {
@@ -19,16 +19,26 @@ class _DemoListenableProviderPageState extends State<DemoListenableProviderPage>
       appBar: AppBar(
         title: Text("Listenable Provider"),
       ),
-      body: Container(
-        child: Center(
-          child: Column(
-            children: [
-              SizedBox(height: 20),
-              ParentWidget(),
-              SizedBox(height: 20),
-              OtherWidget()
-            ],
-          ),
+      body: Provider<Person>(
+        create: (context) => Person(name: ValueNotifier("Nguyen Van A")),
+        child: Consumer<Person>(
+          builder: (context, person , child){
+            return  ValueListenableProvider.value(
+              value: person.name,
+              child: Container(
+                child: Center(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 20),
+                      ParentWidget(),
+                      SizedBox(height: 20),
+                      OtherWidget()
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }
         ),
       ),
     );
@@ -44,10 +54,14 @@ class ParentWidget extends StatefulWidget {
 class _ParentWidgetState extends State<ParentWidget> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text("Parent"),
-      ),
+    return Consumer<Person>(
+      builder: (context , person , child ){
+        return Container(
+          child: Center(
+            child: Text(person.name.value),
+          ),
+        );
+      }
     );
   }
 }
