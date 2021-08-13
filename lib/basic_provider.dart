@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Person {
   late String name;
@@ -22,9 +23,14 @@ class _BasicProviderPageState extends State<BasicProviderPage> {
       appBar: AppBar(
         title: Text("Basic Provider"),
       ),
-      body: Container(
-        child: Center(
-          child: Text("Demo"),
+      body: Provider.value(
+        value: person,
+        child: Container(
+          child: Center(
+            child: ParentWidget(
+              child: ChildrenWidget(),
+            ),
+          ),
         ),
       ),
     );
@@ -59,9 +65,10 @@ class ChildrenWidget extends StatefulWidget {
 class _ChildrenWidgetState extends State<ChildrenWidget> {
   @override
   Widget build(BuildContext context) {
+    Person person = Provider.of(context);
     return Container(
       child: Center(
-        child: Text("Children"),
+        child: Text(person.name),
       ),
     );
   }
