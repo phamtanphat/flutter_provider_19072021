@@ -26,15 +26,13 @@ class _DemoListenableProviderPageState extends State<DemoListenableProviderPage>
             return  ValueListenableProvider.value(
               value: person.name,
               child: Container(
-                child: Center(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 20),
-                      ParentWidget(),
-                      SizedBox(height: 20),
-                      OtherWidget()
-                    ],
-                  ),
+                child:  Column(
+                  children: [
+                    SizedBox(height: 20),
+                    ParentWidget(),
+                    SizedBox(height: 20),
+                    OtherWidget()
+                  ],
                 ),
               ),
             );
@@ -54,11 +52,11 @@ class ParentWidget extends StatefulWidget {
 class _ParentWidgetState extends State<ParentWidget> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<Person>(
-      builder: (context , person , child ){
+    return Consumer<String>(
+      builder: (context , name  , child ){
         return Container(
           child: Center(
-            child: Text(person.name.value),
+            child: Text(name.toString()),
           ),
         );
       }
@@ -67,7 +65,6 @@ class _ParentWidgetState extends State<ParentWidget> {
 }
 
 class OtherWidget extends StatefulWidget {
-  const OtherWidget({Key? key}) : super(key: key);
 
   @override
   _OtherWidgetState createState() => _OtherWidgetState();
@@ -94,8 +91,8 @@ class _OtherWidgetState extends State<OtherWidget> {
           SizedBox(height: 20),
           ElevatedButton(
               onPressed: (){
-                  Person person = Provider.of(context , listen: false);
-                  person.name.value += textController.text;
+                  Person person = context.read<Person>();
+                  person.name.value = textController.text;
               },
               child: Text("Change Name")
           )
