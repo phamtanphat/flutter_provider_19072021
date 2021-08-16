@@ -91,6 +91,7 @@ class _ChangeInfoUserWidgetState extends State<ChangeInfoUserWidget> {
           user.age = 15;
         },
         child: Text("Change name")
+
     );
   }
 }
