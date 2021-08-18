@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_provider_19072021/basic_provider.dart';
 import 'package:flutter_provider_19072021/demo_changenotifier.dart';
 import 'package:flutter_provider_19072021/demo_future_provider.dart';
+import 'package:flutter_provider_19072021/demo_proxy_provider.dart';
 import 'package:flutter_provider_19072021/demo_stream_provider.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: DemoStreamProvider(),
+      home: DemoProxyProvider(),
     );
   }
 }
